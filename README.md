@@ -16,11 +16,13 @@
 ## How to run
 1.  Open your fav terminal and cd to this project
 2.  Run `composer install`
-3.  Then `npm install`
-4.  Also `npm run dev`
-5.  Create new DB in your local and name it with `simple_crud`
-6.  And `php artisan migrate`
+5.  Then create new DB in your local and name it with `simple_crud`
+6.  And run `php artisan migrate`
 7.  To serve this app you can use `php artisan serve` and voila this app is up now
+
+## Compiling React
+1.  Run `npm install`
+2.  Then `npm run dev`
 
 ## About Laravel
 
