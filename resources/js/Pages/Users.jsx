@@ -3,7 +3,6 @@ import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
 
 export default function Users(props) {
-  console.log(JSON.stringify(props.users))
     return (
         <Authenticated
             auth={props.auth}

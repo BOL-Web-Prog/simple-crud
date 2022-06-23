@@ -5595,7 +5595,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Users(props) {
-  console.log(JSON.stringify(props.users));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__["default"], {
     auth: props.auth,
     errors: props.errors,
