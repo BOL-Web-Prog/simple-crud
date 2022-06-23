@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -33,8 +34,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $user = User::where([
+          ['email', '=', $request->email],
+          ['password', '=', $request->password]
+        ])->first();
 
+        if (!$user) {
+          return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+          ])->onlyInput('email');
+        }
+
+        Auth::login($user);
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
