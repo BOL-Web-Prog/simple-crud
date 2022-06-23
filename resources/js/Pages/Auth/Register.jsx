@@ -3,6 +3,7 @@ import Button from '@/Components/Button';
 import Guest from '@/Layouts/Guest';
 import Input from '@/Components/Input';
 import Label from '@/Components/Label';
+import Dropdown from '@/Components/Dropdown';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
@@ -10,8 +11,11 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        birthplace: '',
+        birthdate: '',
         password: '',
         password_confirmation: '',
+        gender: ''
     });
 
     useEffect(() => {
@@ -64,6 +68,30 @@ export default function Register() {
                         handleChange={onHandleChange}
                         required
                     />
+                </div>
+
+                <div className="mt-4 radio-buttons">
+                    <Label forInput="gender" value="Gender" />
+
+                    <input
+                      id="male"
+                      value="male"
+                      name="gender"
+                      type="radio"
+                      onChange={onHandleChange}
+                      required={!data.gender}
+                    />
+                    Male
+
+                    <input
+                      id="female"
+                      value="female"
+                      name="gender"
+                      type="radio"
+                      onChange={onHandleChange}
+                      required={!data.gender}
+                    />
+                    Female
                 </div>
 
                 <div className="mt-4">
