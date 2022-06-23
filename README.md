@@ -18,8 +18,9 @@
 2.  Run `composer install`
 3.  Then `npm install`
 4.  Also `npm run dev`
-5.  And `php artisan migrate`
-6.  To serve this app you can use `php artisan serve` and voila this app is up now
+5.  Create new DB in your local and name it with `simple_crud`
+6.  And `php artisan migrate`
+7.  To serve this app you can use `php artisan serve` and voila this app is up now
 
 ## About Laravel
 
