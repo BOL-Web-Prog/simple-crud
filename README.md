@@ -7,6 +7,21 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Project Requirement
+1. PHP 8+
+2. Laravel 9+
+3. npm 8+
+4. MySQL 8
+
+## How to run
+1.  Open your fav terminal and cd to this project
+2.  Run `composer install`
+3.  Then `npm install`
+4.  Also `npm run dev`
+5.  Create new DB in your local and name it with `simple_crud`
+6.  And `php artisan migrate`
+7.  To serve this app you can use `php artisan serve` and voila this app is up now
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
