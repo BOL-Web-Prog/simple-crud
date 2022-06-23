@@ -68,6 +68,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
+            'birthdate' => $data['birthdate'],
+            'birthplace' => $data['birthplace'],
+            'gender' => $data['gender']
         ]);
     }
 }

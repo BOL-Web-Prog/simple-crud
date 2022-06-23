@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/Components/Button';
 import Guest from '@/Layouts/Guest';
 import Input from '@/Components/Input';
@@ -6,13 +6,19 @@ import Label from '@/Components/Label';
 import Dropdown from '@/Components/Dropdown';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import DatePicker from 'react-date-picker';
 
 export default function Register() {
+    const [birthDate, setBirthDate] = useState(new Date())
+
+    const day = birthDate ? birthDate.toLocaleString('default', { day: '2-digit' }) : ''
+    const month = birthDate ? birthDate.toLocaleString('default', { month: 'short' }) : ''
+    const year = birthDate ? birthDate.toLocaleString('default', { year: 'numeric' }) : ''
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         birthplace: '',
-        birthdate: '',
+        birthdate: `${day}-${month}-${year}`,
         password: '',
         password_confirmation: '',
         gender: ''
@@ -71,27 +77,46 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4 radio-buttons">
-                    <Label forInput="gender" value="Gender" />
+                  <Label forInput="gender" value="Gender" />
 
-                    <input
-                      id="male"
-                      value="male"
-                      name="gender"
-                      type="radio"
-                      onChange={onHandleChange}
-                      required={!data.gender}
-                    />
-                    Male
+                  <input
+                    id="male"
+                    value="male"
+                    name="gender"
+                    type="radio"
+                    onChange={onHandleChange}
+                    required={!data.gender}
+                  />
+                  Male
 
-                    <input
-                      id="female"
-                      value="female"
-                      name="gender"
-                      type="radio"
-                      onChange={onHandleChange}
-                      required={!data.gender}
-                    />
-                    Female
+                  <input
+                    id="female"
+                    value="female"
+                    name="gender"
+                    type="radio"
+                    onChange={onHandleChange}
+                    required={!data.gender}
+                  />
+                  Female
+                </div>
+
+                <div className="mt-4">
+                  <Label forInput="birthplace" value="Birthplace" />
+
+                  <Input
+                    type="text"
+                    name="birthplace"
+                    value={data.birthplace}
+                    className="mt-1 block w-full"
+                    handleChange={onHandleChange}
+                    required
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <Label forInput="birthday" value="Birthday" />
+
+                  <DatePicker onChange={setBirthDate} value={birthDate} required format='dd-MM-y'/>
                 </div>
 
                 <div className="mt-4">
