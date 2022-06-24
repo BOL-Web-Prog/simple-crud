@@ -16,4 +16,22 @@ class UserController extends Controller
 
       return UserResource::collection($users);
     }
+
+    public function updateUser(Request $request) {
+      $user = User::find($request->id);
+
+      $user->name = $request['name'];
+      $user->email = $request['email'];
+      $user->password = $request['password'];
+      $user->birthdate = $request['birthdate'];
+      $user->birthplace = $request['birthplace'];
+      $user->gender = $request['gender'];
+
+      $user->save();
+
+      $resp = new stdClass();
+      $resp->status = '00';
+      $resp->message = 'success';
+      return Response::json($resp, 200);
+    }
 }
