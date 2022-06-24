@@ -27,6 +27,7 @@
         "tailwindcss": "^3.1.0"
     },
     "dependencies": {
+        "react-bootstrap": "^2.4.0",
         "react-date-picker": "^8.4.0",
         "react-datepicker": "^4.8.0"
     }

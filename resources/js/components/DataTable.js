@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Modal, Button } from 'react-bootstrap'
+import DatePicker from 'react-date-picker';
+import Input from '@/Components/Input';
+import Label from '@/Components/Label';
 
 export default class DataTable extends Component {
   constructor(props) {
@@ -21,6 +25,8 @@ export default class DataTable extends Component {
       sorted_column: this.props.columns[0],
       offset: 4,
       order: 'asc',
+      editModal: false,
+      userToEdit: {}
     };
   }
 
@@ -81,12 +87,128 @@ export default class DataTable extends Component {
     });
   }
 
+  submitEdit() {
+    this.setState({ editModal: false, userToEdit: {} })
+    console.log(this.state.userToEdit)
+  }
+
   userList() {
     if (this.state.entities.data.length) {
       return this.state.entities.data.map(user => {
-        return <tr key={ user.id }>
-          {Object.keys(user).map(key => <td key={key}>{ user[key] }</td>)}
-        </tr>
+        return (
+          <>
+            <Modal show={this.state.editModal} onHide={() => this.setState({ editModal: false, userToEdit: {} })}>
+              <Modal.Header closeButton>
+                <Modal.Title>Edit User { this.state.userToEdit.id }</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+              <div>
+                    <Label forInput="name" value="Name" />
+
+                    <Input
+                        type="text"
+                        name="name"
+                        value={this.state.userToEdit.name}
+                        className="mt-1 block w-full"
+                        autoComplete="name"
+                        isFocused={true}
+                        required
+                        handleChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, name: e.target.value} })}
+                    />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="email" value="Email" />
+
+                    <Input
+                        type="email"
+                        name="email"
+                        value={this.state.userToEdit.email}
+                        className="mt-1 block w-full"
+                        autoComplete="username"
+                        required
+                        handleChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, email: e.target.value} })}
+                    />
+                </div>
+
+                <div className="mt-4 radio-buttons">
+                  <Label forInput="gender" value="Gender" />
+
+                  <input
+                    id="male"
+                    value="male"
+                    name="gender"
+                    type="radio"
+                    required={!this.state.userToEdit.gender}
+                    checked={this.state.userToEdit.gender == 'male'}
+                    onChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, gender: e.target.value} })}
+                  />
+                  Male
+
+                  <input
+                    id="female"
+                    value="female"
+                    name="gender"
+                    type="radio"
+                    required={!this.state.userToEdit.gender}
+                    checked={this.state.userToEdit.gender == 'female'}
+                    onChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, gender: e.target.value} })}
+                  />
+                  Female
+                </div>
+
+                <div className="mt-4">
+                  <Label forInput="birthplace" value="Birthplace" />
+
+                  <Input
+                    type="text"
+                    name="birthplace"
+                    value={this.state.userToEdit.birthplace}
+                    className="mt-1 block w-full"
+                    required
+                    handleChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, birthplace: e.target.value} })}
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <Label forInput="birthday" value="Birthday" />
+
+                  <DatePicker onChange={(val) => this.setState({ userToEdit: {...this.state.userToEdit, birthdate: val} })} value={this.state.userToEdit.birthdate ? new Date(this.state.userToEdit.birthdate) : new Date()} required format='dd-MM-y'/>
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="password" value="Password" />
+
+                    <Input
+                        type="text"
+                        name="password"
+                        value={this.state.userToEdit.password}
+                        className="mt-1 block w-full"
+                        autoComplete="new-password"
+                        required
+                        handleChange={(e) => this.setState({ userToEdit: {...this.state.userToEdit, password: e.target.value} })}
+                    />
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => this.setState({ editModal: false, userToEdit: {} })}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={() => this.submitEdit()}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
+
+            <tr key={ user.id }>
+              {Object.keys(user).map(key => <td key={key}>{ user[key] }</td>)}
+              <td class="btn-group" role="group" aria-label="Actions">
+                <button type="button" class="btn btn-primary" onClick={() => this.setState({ editModal: true, userToEdit: user })}>Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+              </td>
+            </tr> 
+          </>
+        )
       })
     } else {
       return <tr>
