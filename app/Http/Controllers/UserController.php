@@ -35,8 +35,8 @@ class UserController extends Controller
       ]);
     }
 
-    public function deleteUser(Request $request) {
-      $user = User::find($request->id);
+    public function deleteUser($id) {
+      $user = User::find($id);
       $user->delete();
       return response()->json([
         'status' => '00',

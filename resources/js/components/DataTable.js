@@ -112,14 +112,31 @@ export default class DataTable extends Component {
       })
   }
 
-  deleteData() {
+  deleteData(id) {
     Swal.fire({
       title: 'Are you sure want to delete this user?',
       showCancelButton: true,
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Delete Success', '', 'success')
+        axios.delete(this.props.url + '/' + id)
+          .then(data => {
+            Swal.fire(
+              'Delete success',
+              'Success to delete user',
+              'success'
+            ).then(result => {
+              window.location.reload()
+            })
+          })
+          .catch(e => {
+            console.log(e)
+            Swal.fire(
+              'Delete Failed',
+              'Failed to delete user',
+              'error'
+            )
+          })
       }
     })
   }
@@ -236,7 +253,7 @@ export default class DataTable extends Component {
               {Object.keys(user).map(key => <td key={key}>{ user[key] }</td>)}
               <td class="btn-group" role="group" aria-label="Actions">
                 <button type="button" class="btn btn-primary" onClick={() => this.setState({ editModal: true, userToEdit: user })}>Edit</button>
-                <button type="button" class="btn btn-danger" onClick={() => this.deleteData()}>Delete</button>
+                <button type="button" class="btn btn-danger" onClick={() => this.deleteData(user.id)}>Delete</button>
               </td>
             </tr> 
           </>

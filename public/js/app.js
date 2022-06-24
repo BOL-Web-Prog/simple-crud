@@ -7660,29 +7660,38 @@ var DataTable = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "deleteData",
-    value: function deleteData() {
+    value: function deleteData(id) {
+      var _this6 = this;
+
       sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
         title: 'Are you sure want to delete this user?',
         showCancelButton: true,
         confirmButtonText: 'Yes'
       }).then(function (result) {
         if (result.isConfirmed) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire('Delete Success', '', 'success');
+          axios__WEBPACK_IMPORTED_MODULE_5___default()["delete"](_this6.props.url + '/' + id).then(function (data) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire('Delete success', 'Success to delete user', 'success').then(function (result) {
+              window.location.reload();
+            });
+          })["catch"](function (e) {
+            console.log(e);
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire('Delete Failed', 'Failed to delete user', 'error');
+          });
         }
       });
     }
   }, {
     key: "userList",
     value: function userList() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this.state.entities.data.length) {
         return this.state.entities.data.map(function (user) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              show: _this6.state.editModal,
+              show: _this7.state.editModal,
               onHide: function onHide() {
-                return _this6.setState({
+                return _this7.setState({
                   editModal: false,
                   userToEdit: {}
                 });
@@ -7690,7 +7699,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Header, {
                 closeButton: true,
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Title, {
-                  children: ["Edit User ", _this6.state.userToEdit.id]
+                  children: ["Edit User ", _this7.state.userToEdit.id]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -7700,14 +7709,14 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     type: "text",
                     name: "name",
-                    value: _this6.state.userToEdit.name,
+                    value: _this7.state.userToEdit.name,
                     className: "mt-1 block w-full",
                     autoComplete: "name",
                     isFocused: true,
                     required: true,
                     handleChange: function handleChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           name: e.target.value
                         })
                       });
@@ -7721,13 +7730,13 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     type: "email",
                     name: "email",
-                    value: _this6.state.userToEdit.email,
+                    value: _this7.state.userToEdit.email,
                     className: "mt-1 block w-full",
                     autoComplete: "username",
                     required: true,
                     handleChange: function handleChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           email: e.target.value
                         })
                       });
@@ -7743,11 +7752,11 @@ var DataTable = /*#__PURE__*/function (_Component) {
                     value: "male",
                     name: "gender",
                     type: "radio",
-                    required: !_this6.state.userToEdit.gender,
-                    checked: _this6.state.userToEdit.gender == 'male',
+                    required: !_this7.state.userToEdit.gender,
+                    checked: _this7.state.userToEdit.gender == 'male',
                     onChange: function onChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           gender: e.target.value
                         })
                       });
@@ -7757,11 +7766,11 @@ var DataTable = /*#__PURE__*/function (_Component) {
                     value: "female",
                     name: "gender",
                     type: "radio",
-                    required: !_this6.state.userToEdit.gender,
-                    checked: _this6.state.userToEdit.gender == 'female',
+                    required: !_this7.state.userToEdit.gender,
+                    checked: _this7.state.userToEdit.gender == 'female',
                     onChange: function onChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           gender: e.target.value
                         })
                       });
@@ -7775,12 +7784,12 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     type: "text",
                     name: "birthplace",
-                    value: _this6.state.userToEdit.birthplace,
+                    value: _this7.state.userToEdit.birthplace,
                     className: "mt-1 block w-full",
                     required: true,
                     handleChange: function handleChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           birthplace: e.target.value
                         })
                       });
@@ -7793,13 +7802,13 @@ var DataTable = /*#__PURE__*/function (_Component) {
                     value: "Birthday"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_date_picker__WEBPACK_IMPORTED_MODULE_1__["default"], {
                     onChange: function onChange(val) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           birthdate: val
                         })
                       });
                     },
-                    value: _this6.state.userToEdit.birthdate ? new Date(_this6.state.userToEdit.birthdate) : new Date(),
+                    value: _this7.state.userToEdit.birthdate ? new Date(_this7.state.userToEdit.birthdate) : new Date(),
                     required: true,
                     format: "dd-MM-y"
                   })]
@@ -7811,13 +7820,13 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_2__["default"], {
                     type: "text",
                     name: "password",
-                    value: _this6.state.userToEdit.password,
+                    value: _this7.state.userToEdit.password,
                     className: "mt-1 block w-full",
                     autoComplete: "new-password",
                     required: true,
                     handleChange: function handleChange(e) {
-                      return _this6.setState({
-                        userToEdit: _objectSpread(_objectSpread({}, _this6.state.userToEdit), {}, {
+                      return _this7.setState({
+                        userToEdit: _objectSpread(_objectSpread({}, _this7.state.userToEdit), {}, {
                           password: e.target.value
                         })
                       });
@@ -7828,7 +7837,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
                   variant: "secondary",
                   onClick: function onClick() {
-                    return _this6.setState({
+                    return _this7.setState({
                       editModal: false,
                       userToEdit: {}
                     });
@@ -7837,7 +7846,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
                   variant: "primary",
                   onClick: function onClick() {
-                    return _this6.submitEdit();
+                    return _this7.submitEdit();
                   },
                   children: "Save Changes"
                 })]
@@ -7855,7 +7864,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   type: "button",
                   "class": "btn btn-primary",
                   onClick: function onClick() {
-                    return _this6.setState({
+                    return _this7.setState({
                       editModal: true,
                       userToEdit: user
                     });
@@ -7865,7 +7874,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                   type: "button",
                   "class": "btn btn-danger",
                   onClick: function onClick() {
-                    return _this6.deleteData();
+                    return _this7.deleteData(user.id);
                   },
                   children: "Delete"
                 })]
@@ -7886,18 +7895,18 @@ var DataTable = /*#__PURE__*/function (_Component) {
   }, {
     key: "sortByColumn",
     value: function sortByColumn(column) {
-      var _this7 = this;
+      var _this8 = this;
 
       if (column === this.state.sorted_column) {
         this.state.order === 'asc' ? this.setState({
           order: 'desc',
           current_page: this.state.first_page
         }, function () {
-          _this7.fetchEntities();
+          _this8.fetchEntities();
         }) : this.setState({
           order: 'asc'
         }, function () {
-          _this7.fetchEntities();
+          _this8.fetchEntities();
         });
       } else {
         this.setState({
@@ -7905,22 +7914,22 @@ var DataTable = /*#__PURE__*/function (_Component) {
           order: 'asc',
           current_page: this.state.first_page
         }, function () {
-          _this7.fetchEntities();
+          _this8.fetchEntities();
         });
       }
     }
   }, {
     key: "pageList",
     value: function pageList() {
-      var _this8 = this;
+      var _this9 = this;
 
       return this.pagesNumbers().map(function (page) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-          className: page === _this8.state.entities.meta.current_page ? 'page-item active' : 'page-item',
+          className: page === _this9.state.entities.meta.current_page ? 'page-item active' : 'page-item',
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
             className: "page-link",
             onClick: function onClick() {
-              return _this8.changePage(page);
+              return _this9.changePage(page);
             },
             children: page
           })
@@ -7930,7 +7939,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this9 = this;
+      var _this10 = this;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "data-table",
@@ -7952,7 +7961,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                 className: "page-link",
                 disabled: 1 === this.state.entities.meta.current_page,
                 onClick: function onClick() {
-                  return _this9.changePage(_this9.state.entities.meta.current_page - 1);
+                  return _this10.changePage(_this10.state.entities.meta.current_page - 1);
                 },
                 children: "Previous"
               })
@@ -7962,7 +7971,7 @@ var DataTable = /*#__PURE__*/function (_Component) {
                 className: "page-link",
                 disabled: this.state.entities.meta.last_page === this.state.entities.meta.current_page,
                 onClick: function onClick() {
-                  return _this9.changePage(_this9.state.entities.meta.current_page + 1);
+                  return _this10.changePage(_this10.state.entities.meta.current_page + 1);
                 },
                 children: "Next"
               })
