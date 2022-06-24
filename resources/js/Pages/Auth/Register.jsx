@@ -11,14 +11,11 @@ import DatePicker from 'react-date-picker';
 export default function Register() {
     const [birthDate, setBirthDate] = useState(new Date())
 
-    const day = birthDate ? birthDate.toLocaleString('default', { day: '2-digit' }) : ''
-    const month = birthDate ? birthDate.toLocaleString('default', { month: 'short' }) : ''
-    const year = birthDate ? birthDate.toLocaleString('default', { year: 'numeric' }) : ''
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         birthplace: '',
-        birthdate: `${day}-${month}-${year}`,
+        birthdate: birthDate,
         password: '',
         password_confirmation: '',
         gender: ''

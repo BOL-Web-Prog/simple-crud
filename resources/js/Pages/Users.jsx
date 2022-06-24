@@ -6,7 +6,7 @@ import DataTable from '@/components/DataTable';
 import '../bootstrap'
 
 export default function Users(props) {
-    const columns = ['id', 'name', 'email', 'gender', 'birthplace', 'birthdate', 'password'];
+    const columns = ['id', 'name', 'email', 'gender', 'birthplace', 'birthdate', 'password', 'actions'];
     return (
         <Authenticated
             auth={props.auth}
