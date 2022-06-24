@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', [UserController::class, 'showUser'])->name('users');
-Route::put('/user', [UserController::class, 'updateUser']);
+Route::put('/users', [UserController::class, 'updateUser'])->name('users');

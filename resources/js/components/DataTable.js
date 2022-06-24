@@ -3,6 +3,8 @@ import { Modal, Button } from 'react-bootstrap'
 import DatePicker from 'react-date-picker';
 import Input from '@/Components/Input';
 import Label from '@/Components/Label';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export default class DataTable extends Component {
   constructor(props) {
@@ -89,7 +91,25 @@ export default class DataTable extends Component {
 
   submitEdit() {
     this.setState({ editModal: false, userToEdit: {} })
-    console.log(this.state.userToEdit)
+
+    axios.put(this.props.url, this.state.userToEdit)
+      .then(data => {
+        Swal.fire(
+          'Update Success',
+          'Data user berhasil diupdate!',
+          'success'
+        ).then((result) => {
+          window.location.reload();
+        })
+      })
+      .catch(e => {
+        console.log(e)
+        Swal.fire(
+          'Update Failed',
+          'Failed to update user',
+          'error'
+        )
+      })
   }
 
   userList() {

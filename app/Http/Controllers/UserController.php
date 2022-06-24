@@ -29,9 +29,9 @@ class UserController extends Controller
 
       $user->save();
 
-      $resp = new stdClass();
-      $resp->status = '00';
-      $resp->message = 'success';
-      return Response::json($resp, 200);
+      return response()->json([
+        'status' => '00',
+        'message' => 'success'
+      ]);
     }
 }
