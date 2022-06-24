@@ -112,6 +112,18 @@ export default class DataTable extends Component {
       })
   }
 
+  deleteData() {
+    Swal.fire({
+      title: 'Are you sure want to delete this user?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Delete Success', '', 'success')
+      }
+    })
+  }
+
   userList() {
     if (this.state.entities.data.length) {
       return this.state.entities.data.map(user => {
@@ -224,7 +236,7 @@ export default class DataTable extends Component {
               {Object.keys(user).map(key => <td key={key}>{ user[key] }</td>)}
               <td class="btn-group" role="group" aria-label="Actions">
                 <button type="button" class="btn btn-primary" onClick={() => this.setState({ editModal: true, userToEdit: user })}>Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" onClick={() => this.deleteData()}>Delete</button>
               </td>
             </tr> 
           </>

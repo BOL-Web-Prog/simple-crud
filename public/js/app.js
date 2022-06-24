@@ -7659,6 +7659,19 @@ var DataTable = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "deleteData",
+    value: function deleteData() {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+        title: 'Are you sure want to delete this user?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire('Delete Success', '', 'success');
+        }
+      });
+    }
+  }, {
     key: "userList",
     value: function userList() {
       var _this6 = this;
@@ -7851,6 +7864,9 @@ var DataTable = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
                   type: "button",
                   "class": "btn btn-danger",
+                  onClick: function onClick() {
+                    return _this6.deleteData();
+                  },
                   children: "Delete"
                 })]
               })]
