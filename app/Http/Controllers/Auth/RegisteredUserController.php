@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'birthdate' => $request->birthdate,
+            'birthdate' => substr($request->birthdate,0,10),
             'birthplace' => $request->birthplace,
             'gender' => $request->gender
         ]);
