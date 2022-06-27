@@ -68,7 +68,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'birthdate' => $data['birthdate'],
+            'birthdate' => substr($data['birthdate'],10),
             'birthplace' => $data['birthplace'],
             'gender' => $data['gender']
         ]);

@@ -23,7 +23,7 @@ class UserController extends Controller
       $user->name = $request['name'];
       $user->email = $request['email'];
       $user->password = $request['password'];
-      $user->birthdate = $request['birthdate'];
+      $user->birthdate = substr($request['birthdate'],0,10);
       $user->birthplace = $request['birthplace'];
       $user->gender = $request['gender'];
 
