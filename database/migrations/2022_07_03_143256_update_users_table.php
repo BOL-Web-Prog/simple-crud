@@ -17,7 +17,7 @@ return new class extends Migration
         $table->string('birthdate');
         $table->string('birthplace');
         $table->string('gender');
-        $table->string('role_id');
+        $table->string('role_id')->default('1');
         $table->index('role_id');
         $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
       });
