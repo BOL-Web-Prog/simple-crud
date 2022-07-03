@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::table('users', function($table) {
-        $table->string('birthdate');
-        $table->string('birthplace');
-        $table->string('gender');
-        $table->string('role');
-      });
+        Schema::create('roles', function (Blueprint $table) {
+          $table->id();
+          $table->string('name');
+          $table->timestamps();
+        });
     }
 
     /**
@@ -28,10 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-      Schema::table('users', function($table) {
-        $table->dropColumn('birthdate');
-        $table->dropColumn('birthplace');
-        $table->dropColumn('gender');
-      });
+        Schema::dropIfExists('roles');
     }
 };
