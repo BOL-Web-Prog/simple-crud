@@ -17,10 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('productName');
             $table->string('productDescription');
-            $table->number('productBasePrice');
-            $table->number('productSellingPrice');
+            $table->integer('productBasePrice');
+            $table->integer('productSellingPrice');
             $table->string('productImages');
-            $table->datetime('created_at');
             $table->timestamps();
         });
     }

@@ -14,12 +14,19 @@ return new class extends Migration
     public function up()
     {
       Schema::table('users', function($table) {
+        $exists = function (string $column) use ($table) {
+            return (Schema::hasColumn($table->getTable(), $column));
+        };
+
+        if ($exists) {
+          return;
+        }
+
         $table->string('birthdate');
         $table->string('birthplace');
         $table->string('gender');
-        $table->string('role_id')->default('1');
-        $table->index('role_id');
-        $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+        $table->unsignedBigInteger('role_id')->default('1');
+        $table->foreign('role_id')->references('id')->on('roles');
       });
     }
 
@@ -34,8 +41,8 @@ return new class extends Migration
         $table->dropColumn('birthdate');
         $table->dropColumn('birthplace');
         $table->dropColumn('gender');
-        $table->dropForeign('lists_role_id_foreign');
-        $table->dropIndex('lists_role_id_index');
+        $table->dropForeign('users_role_id_foreign');
+        $table->dropIndex('users_role_id_index');
         $table->dropColumn('role_id');
       });
     }
