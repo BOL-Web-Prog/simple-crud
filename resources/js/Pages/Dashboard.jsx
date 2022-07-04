@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
+import axios from 'axios';
+
+const fetchPermissions = async(userID) => {
+  axios.get('/api/users/permissions/' + userID)
+    .then(response => {
+      localStorage.setItem('userPermissions', JSON.stringify(response.data.data.permissions))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 
 export default function Dashboard(props) {
+    useEffect(() => {
+      fetchPermissions(props.auth.user.id)
+    })
+
     return (
         <Authenticated
             auth={props.auth}

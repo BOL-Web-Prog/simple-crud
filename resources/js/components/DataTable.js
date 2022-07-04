@@ -28,7 +28,8 @@ export default class DataTable extends Component {
       offset: 4,
       order: 'asc',
       editModal: false,
-      userToEdit: {}
+      userToEdit: {},
+      userPermissions: []
     };
   }
 
@@ -70,8 +71,16 @@ export default class DataTable extends Component {
     return pagesArray;
   }
 
+  can(permission) {
+    if (!this.state.userPermissions) {
+      return
+    }
+    return this.state.userPermissions.find((p) => p.name == permission) ? true : false
+  }
+
   componentDidMount() {
     this.setState({ current_page: this.state.entities.meta.current_page }, () => {this.fetchEntities()});
+    this.setState({ userPermissions: JSON.parse(localStorage.getItem('userPermissions')) })
   }
 
   tableHeads() {
@@ -252,8 +261,15 @@ export default class DataTable extends Component {
             <tr key={ user.id }>
               {Object.keys(user).map(key => <td key={key}>{ user[key] }</td>)}
               <td class="btn-group" role="group" aria-label="Actions">
-                <button type="button" class="btn btn-primary" onClick={() => this.setState({ editModal: true, userToEdit: user })}>Edit</button>
-                <button type="button" class="btn btn-danger" onClick={() => this.deleteData(user.id)}>Delete</button>
+                {this.can('edit user')
+                  ? <button type="button" class="btn btn-primary" onClick={() => this.setState({ editModal: true, userToEdit: user })}>Edit</button>
+                  : ''
+                }
+                {
+                  this.can('delete user')
+                   ? <button type="button" class="btn btn-danger" onClick={() => this.deleteData(user.id)}>Delete</button>
+                   : ''
+                }
               </td>
             </tr> 
           </>

@@ -43,4 +43,13 @@ class UserController extends Controller
         'message' => 'success'
       ]);
     }
+
+    public function permissions($id) {
+      $user = User::find($id)->with('permissions')->first();
+      return response()->json([
+        'status' => '00',
+        'message' => 'success',
+        'data' => $user
+      ]);
+    }
 }
