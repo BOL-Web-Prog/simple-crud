@@ -6,7 +6,7 @@ import axios from 'axios';
 const fetchPermissions = async(userID) => {
   axios.get('/api/users/permissions/' + userID)
     .then(response => {
-      console.log(response)
+      localStorage.setItem('userPermissions', JSON.stringify(response.data.data.permissions))
     })
     .catch(err => {
       console.log(err)
